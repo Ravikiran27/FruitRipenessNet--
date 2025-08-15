@@ -62,7 +62,7 @@ st.markdown('<div style="text-align:center;"><span style="font-size:18px;color:#
 
 # Dashboard layout
 st.sidebar.header('Input Options')
-uploaded_file = st.sidebar.file_uploader('Upload Image', type=['jpg', 'jpeg', 'png'])
+uploaded_file = st.sidebar.file_uploader('Upload Image', type=['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'webp', 'gif'])
 camera_image = st.sidebar.camera_input('Take Photo')
 
 
@@ -73,7 +73,7 @@ sample_folder_abs = os.path.abspath(sample_folder)
 sample_image_paths = []
 for root, dirs, files in os.walk(sample_folder_abs):
     for file in files:
-        if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+        if file.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.webp', '.gif')):
             sample_image_paths.append(os.path.join(root, file))
         if len(sample_image_paths) >= 5:
             break
@@ -95,7 +95,7 @@ if len(sample_imgs) > 0:
     selected_option = st.sidebar.selectbox('Sample Images', options)
     if selected_option != 'None':
         selected_idx = int(selected_option.split()[1]) - 1
-        st.sidebar.image(sample_imgs[selected_idx], caption=selected_option, use_column_width=True)
+        st.sidebar.image(sample_imgs[selected_idx], caption=selected_option, use_container_width=True)
 
 image = None
 caption = ''
@@ -113,7 +113,7 @@ colA, colB = st.columns([2, 3])
 with colA:
     st.markdown('<h3>Selected Image</h3>', unsafe_allow_html=True)
     if image is not None:
-        st.image(image, caption=caption, use_column_width=True)
+        st.image(image, caption=caption, use_container_width=True)
     else:
         st.info('No image selected. Please upload, take a photo, or select a sample image.')
 
